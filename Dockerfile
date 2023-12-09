@@ -3,8 +3,10 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libzip-dev \
     unzip \
-    mc
+    mc \
+    libxml2-dev
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install soap && docker-php-ext-enable soap
 RUN pecl install xdebug-3.1.5
 RUN docker-php-ext-enable xdebug
 RUN mkdir -p /home/app
