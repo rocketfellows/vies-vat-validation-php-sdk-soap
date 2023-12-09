@@ -2,6 +2,7 @@
 
 namespace rocketfellows\ViesVatValidationSoap\tests\unit\services;
 
+use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
@@ -13,6 +14,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedService
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentReqTimeServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
@@ -29,6 +31,8 @@ use stdClass;
 class VatNumberValidationSoapServiceTest extends TestCase
 {
     private const EXPECTED_WSDL_SOURCE = 'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl';
+    private const COUNTRY_CODE_TEST_VALUE = 'DE';
+    private const VAT_NUMBER_TEST_VALUE = '123123';
 
     private $vatNumberValidationSoapService;
     private $soapClientFactory;
@@ -41,6 +45,20 @@ class VatNumberValidationSoapServiceTest extends TestCase
 
         $this->vatNumberValidationSoapService = new VatNumberValidationSoapService(
             $this->soapClientFactory
+        );
+    }
+
+    public function testHandleCreateClientException(): void
+    {
+        $this->soapClientFactory
+            ->method('create')
+            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->willThrowException(new Exception());
+
+        $this->expectException(ServiceRequestException::class);
+
+        $this->vatNumberValidationSoapService->validateVat(
+            new VatNumber(self::COUNTRY_CODE_TEST_VALUE, self::VAT_NUMBER_TEST_VALUE)
         );
     }
 
