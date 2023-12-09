@@ -56,7 +56,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
     public function getHandlingCheckVatFaultProvidedData(): array
     {
         return [
-            [
+            'INVALID_INPUT fault' => [
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('INVALID_INPUT', 'INVALID_INPUT'),
                 'expectedExceptionClass' => InvalidInputServiceException::class,
