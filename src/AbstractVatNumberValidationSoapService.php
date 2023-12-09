@@ -58,6 +58,8 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
                 throw new InvalidInputServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_SERVICE_UNAVAILABLE:
                 throw new ServiceUnavailableException($fault->getMessage(), $fault->getCode(), $fault);
+            case self::SOAP_FAULT_CODE_MS_UNAVAILABLE:
+                throw new MSUnavailableServiceException($fault->getMessage(), $fault->getCode(), $fault);
         }
     }
 }
