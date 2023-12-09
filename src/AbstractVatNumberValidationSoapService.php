@@ -76,20 +76,6 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
         );
     }
 
-    /**
-     * @return GlobalMaxConcurrentReqServiceException
-     * @return GlobalMaxConcurrentReqTimeServiceException
-     * @return IPBlockedServiceException
-     * @return InvalidInputServiceException
-     * @return InvalidRequesterInfoServiceException
-     * @return MSMaxConcurrentReqServiceException
-     * @return MSMaxConcurrentReqTimeServiceException
-     * @return MSUnavailableServiceException
-     * @return ServiceUnavailableException
-     * @return TimeoutServiceException
-     * @return UnknownServiceErrorException
-     * @return VatBlockedServiceException
-     */
     private function handleSoapFault(SoapFault $fault): Exception
     {
         switch ($fault->getMessage()) {
