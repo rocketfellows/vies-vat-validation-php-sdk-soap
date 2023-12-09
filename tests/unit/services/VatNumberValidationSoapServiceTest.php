@@ -6,6 +6,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 use SoapClient;
@@ -60,6 +61,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('INVALID_INPUT', 'INVALID_INPUT'),
                 'expectedExceptionClass' => InvalidInputServiceException::class,
+            ],
+            'SERVICE_UNAVAILABLE fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('SERVICE_UNAVAILABLE', 'SERVICE_UNAVAILABLE'),
+                'expectedExceptionClass' => ServiceUnavailableException::class,
             ],
         ];
     }
