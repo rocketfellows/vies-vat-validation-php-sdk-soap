@@ -5,6 +5,7 @@ namespace rocketfellows\ViesVatValidationSoap\tests\unit\services;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
@@ -96,6 +97,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('IP_BLOCKED', 'IP_BLOCKED'),
                 'expectedExceptionClass' => IPBlockedServiceException::class,
+            ],
+            'GLOBAL_MAX_CONCURRENT_REQ fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('GLOBAL_MAX_CONCURRENT_REQ', 'GLOBAL_MAX_CONCURRENT_REQ'),
+                'expectedExceptionClass' => GlobalMaxConcurrentReqServiceException::class,
             ],
         ];
     }
