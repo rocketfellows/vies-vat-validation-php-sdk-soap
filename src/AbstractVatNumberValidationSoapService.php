@@ -66,6 +66,8 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
                 throw new InvalidRequesterInfoServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_VAT_BLOCKED:
                 throw new VatBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
+            case self::SOAP_FAULT_CODE_IP_BLOCKED:
+                throw new IPBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
         }
     }
 }
