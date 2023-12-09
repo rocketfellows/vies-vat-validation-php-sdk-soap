@@ -29,6 +29,7 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
     private const SOAP_FAULT_CODE_INVALID_REQUESTER_INFO = 'INVALID_REQUESTER_INFO';
     private const SOAP_FAULT_CODE_VAT_BLOCKED = 'VAT_BLOCKED';
     private const SOAP_FAULT_CODE_IP_BLOCKED = 'IP_BLOCKED';
+    private const SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ = 'GLOBAL_MAX_CONCURRENT_REQ';
 
     private $soapClientFactory;
 
