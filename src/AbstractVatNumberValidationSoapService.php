@@ -22,6 +22,8 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 
 class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
+    private const SOAP_FAULT_CODE_INVALID_INPUT = 'INVALID_INPUT';
+
     private $soapClientFactory;
 
     public function __construct(
