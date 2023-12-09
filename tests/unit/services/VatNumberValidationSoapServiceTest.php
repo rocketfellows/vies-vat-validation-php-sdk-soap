@@ -44,9 +44,27 @@ class VatNumberValidationSoapServiceTest extends TestCase
         );
     }
 
-    public function testSuccessCheckVat(): void
-    {
-        // TODO: implement
+    /**
+     * @dataProvider getCheckVatProvidedData
+     */
+    public function testSuccessCheckVat(
+        VatNumber $vatNumber,
+        array $checkVatCallArgs,
+        stdClass $checkVatResponse,
+        VatNumberValidationResult $expectedVatNumberValidationResult
+    ): void {
+        $client = $this->getSoapClientMock('checkVat');
+        $client->method('checkVat')->with($checkVatCallArgs)->willReturn($checkVatResponse);
+
+        $this->soapClientFactory
+            ->method('create')
+            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->willReturn($client);
+
+        $this->assertEquals(
+            $expectedVatNumberValidationResult,
+            $this->vatNumberValidationSoapService->validateVat($vatNumber)
+        );
     }
 
     public function getCheckVatProvidedData(): array
