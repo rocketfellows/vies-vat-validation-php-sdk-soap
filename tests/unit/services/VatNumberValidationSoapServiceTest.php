@@ -30,7 +30,8 @@ use stdClass;
  */
 class VatNumberValidationSoapServiceTest extends TestCase
 {
-    private const EXPECTED_WSDL_SOURCE = 'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl';
+    protected const EXPECTED_WSDL_SOURCE = 'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl';
+
     private const COUNTRY_CODE_TEST_VALUE = 'DE';
     private const VAT_NUMBER_TEST_VALUE = '123123';
 
