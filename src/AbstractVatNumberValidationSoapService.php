@@ -68,6 +68,8 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
                 throw new VatBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_IP_BLOCKED:
                 throw new IPBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
+            case self::SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ:
+                throw new GlobalMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
         }
     }
 }
