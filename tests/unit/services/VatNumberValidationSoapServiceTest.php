@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -90,6 +91,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('VAT_BLOCKED', 'VAT_BLOCKED'),
                 'expectedExceptionClass' => VatBlockedServiceException::class,
+            ],
+            'IP_BLOCKED fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('IP_BLOCKED', 'IP_BLOCKED'),
+                'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
         ];
     }
