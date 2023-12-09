@@ -25,6 +25,7 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
     private const SOAP_FAULT_CODE_INVALID_INPUT = 'INVALID_INPUT';
     private const SOAP_FAULT_CODE_SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE';
     private const SOAP_FAULT_CODE_MS_UNAVAILABLE = 'MS_UNAVAILABLE';
+    private const SOAP_FAULT_CODE_TIMEOUT = 'TIMEOUT';
 
     private $soapClientFactory;
 
