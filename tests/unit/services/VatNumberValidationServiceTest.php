@@ -28,7 +28,7 @@ use stdClass;
 /**
  * @group vies-vat-validation-soap
  */
-abstract class VatNumberValidationSoapServiceTest extends TestCase
+abstract class VatNumberValidationServiceTest extends TestCase
 {
     protected const EXPECTED_WSDL_SOURCE = '';
 

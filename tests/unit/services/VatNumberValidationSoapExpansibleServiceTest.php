@@ -8,7 +8,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansib
 /**
  * @group vies-vat-validation-soap
  */
-class VatNumberValidationSoapExpansibleServiceTest extends VatNumberValidationSoapServiceTest
+class VatNumberValidationSoapExpansibleServiceTest extends VatNumberValidationServiceTest
 {
     protected const EXPECTED_WSDL_SOURCE = 'foo';
 
