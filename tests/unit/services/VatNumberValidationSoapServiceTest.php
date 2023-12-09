@@ -8,6 +8,7 @@ use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 use SoapClient;
@@ -72,6 +73,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('MS_UNAVAILABLE', 'MS_UNAVAILABLE'),
                 'expectedExceptionClass' => MSUnavailableServiceException::class,
+            ],
+            'TIMEOUT fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('TIMEOUT', 'TIMEOUT'),
+                'expectedExceptionClass' => TimeoutServiceException::class,
             ],
         ];
     }
