@@ -18,8 +18,10 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceEx
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 use SoapFault;
+use stdClass;
 
 /**
  * @group vies-vat-validation-soap
@@ -50,7 +52,31 @@ class VatNumberValidationSoapServiceTest extends TestCase
     public function getCheckVatProvidedData(): array
     {
         return [
-            [],
+            'response country code set, vat number set, request date set, is valid, name set, address set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                    'requestDate' => '2023-11-11 23:23:23',
+                    'valid' => true,
+                    'name' => 'foo',
+                    'address' => 'bar',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    true,
+                    'foo',
+                    'bar'
+                ),
+            ],
         ];
     }
 
