@@ -138,6 +138,31 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     null
                 ),
             ],
+            'response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'countryCode' => '',
+                    'vatNumber' => '',
+                    'requestDate' => '',
+                    'valid' => false,
+                    'name' => '',
+                    'address' => '',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    false,
+                    '',
+                    ''
+                ),
+            ],
         ];
     }
 
