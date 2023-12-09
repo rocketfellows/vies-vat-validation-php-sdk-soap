@@ -23,6 +23,7 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
     private const SOAP_FAULT_CODE_INVALID_INPUT = 'INVALID_INPUT';
+    private const SOAP_FAULT_CODE_SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE';
 
     private $soapClientFactory;
 
