@@ -19,7 +19,6 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceEr
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
-use SoapClient;
 use SoapFault;
 
 /**
@@ -48,11 +47,12 @@ class VatNumberValidationSoapServiceTest extends TestCase
      */
     public function testHandleCheckVatFault(
         VatNumber $vatNumber,
+        array $checkVatCallArgs,
         SoapFault $thrownCheckVatFault,
         string $expectedExceptionClass
     ): void {
         $client = $this->getSoapClientMock('checkVat');
-        $client->method('checkVat')->willThrowException($thrownCheckVatFault);
+        $client->method('checkVat')->with($checkVatCallArgs)->willThrowException($thrownCheckVatFault);
 
         $this->soapClientFactory
             ->method('create')
@@ -72,6 +72,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'INVALID_INPUT',
                     'INVALID_INPUT'
@@ -83,6 +87,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'SERVICE_UNAVAILABLE',
                     'SERVICE_UNAVAILABLE'
@@ -94,6 +102,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'MS_UNAVAILABLE',
                     'MS_UNAVAILABLE'
@@ -105,6 +117,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'TIMEOUT',
                     'TIMEOUT'
@@ -116,6 +132,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'INVALID_REQUESTER_INFO',
                     'INVALID_REQUESTER_INFO'
@@ -127,6 +147,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'VAT_BLOCKED',
                     'VAT_BLOCKED'
@@ -138,6 +162,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'IP_BLOCKED',
                     'IP_BLOCKED'
@@ -149,6 +177,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'GLOBAL_MAX_CONCURRENT_REQ',
                     'GLOBAL_MAX_CONCURRENT_REQ'
@@ -160,6 +192,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'GLOBAL_MAX_CONCURRENT_REQ_TIME',
                     'GLOBAL_MAX_CONCURRENT_REQ_TIME'
@@ -171,6 +207,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'MS_MAX_CONCURRENT_REQ',
                     'MS_MAX_CONCURRENT_REQ'
@@ -182,6 +222,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'MS_MAX_CONCURRENT_REQ_TIME',
                     'MS_MAX_CONCURRENT_REQ_TIME'
@@ -193,6 +237,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
                     'DE',
                     '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
                 'thrownCheckVatFault' => new SoapFault(
                     'foo',
                     'foo'
