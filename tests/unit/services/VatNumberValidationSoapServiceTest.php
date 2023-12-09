@@ -11,6 +11,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServ
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentReqServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentReqTimeServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -114,6 +115,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('MS_MAX_CONCURRENT_REQ', 'MS_MAX_CONCURRENT_REQ'),
                 'expectedExceptionClass' => MSMaxConcurrentReqServiceException::class,
+            ],
+            'MS_MAX_CONCURRENT_REQ_TIME fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('MS_MAX_CONCURRENT_REQ_TIME', 'MS_MAX_CONCURRENT_REQ_TIME'),
+                'expectedExceptionClass' => MSMaxConcurrentReqTimeServiceException::class,
             ],
         ];
     }
