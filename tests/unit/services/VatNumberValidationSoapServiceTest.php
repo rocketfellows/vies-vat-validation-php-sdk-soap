@@ -48,6 +48,26 @@ class VatNumberValidationSoapServiceTest extends TestCase
         );
     }
 
+    public function testHandleCheckVatException(): void
+    {
+        $client = $this->getSoapClientMock('checkVat');
+        $client
+            ->method('checkVat')
+            ->with(['countryCode' => self::COUNTRY_CODE_TEST_VALUE, 'vatNumber' => self::VAT_NUMBER_TEST_VALUE])
+            ->willThrowException(new Exception());
+
+        $this->soapClientFactory
+            ->method('create')
+            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->willReturn($client);
+
+        $this->expectException(ServiceRequestException::class);
+
+        $this->vatNumberValidationSoapService->validateVat(
+            new VatNumber(self::COUNTRY_CODE_TEST_VALUE, self::VAT_NUMBER_TEST_VALUE)
+        );
+    }
+
     public function testHandleCreateClientException(): void
     {
         $this->soapClientFactory
