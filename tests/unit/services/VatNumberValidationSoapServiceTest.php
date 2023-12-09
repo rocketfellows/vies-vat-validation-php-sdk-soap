@@ -47,6 +47,13 @@ class VatNumberValidationSoapServiceTest extends TestCase
         // TODO: implement
     }
 
+    public function getCheckVatProvidedData(): array
+    {
+        return [
+            [],
+        ];
+    }
+
     /**
      * @dataProvider getHandlingCheckVatFaultProvidedData
      */
