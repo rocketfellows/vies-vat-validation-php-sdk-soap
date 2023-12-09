@@ -2,6 +2,7 @@
 
 namespace rocketfellows\ViesVatValidationSoap;
 
+use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqTimeServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
@@ -21,6 +22,14 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 
 class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
+    private $soapClientFactory;
+
+    public function __construct(
+        SoapClientFactory $soapClientFactory
+    ) {
+        $this->soapClientFactory = $soapClientFactory;
+    }
+
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
         // TODO: Implement validateVat() method.
