@@ -10,6 +10,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequester
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 use SoapClient;
@@ -84,6 +85,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('INVALID_REQUESTER_INFO', 'INVALID_REQUESTER_INFO'),
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
+            ],
+            'VAT_BLOCKED fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('VAT_BLOCKED', 'VAT_BLOCKED'),
+                'expectedExceptionClass' => VatBlockedServiceException::class,
             ],
         ];
     }
