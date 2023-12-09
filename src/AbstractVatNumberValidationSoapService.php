@@ -20,6 +20,7 @@ use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
 use SoapFault;
+use stdClass;
 
 class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
@@ -48,6 +49,17 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
         // TODO: Implement validateVat() method.
+    }
+
+    private function handleResponse(stdClass $response): VatNumberValidationResult
+    {
+        return VatNumberValidationResult::create(
+            VatNumber::create($response->countryCode ?? '', $response->vatNumber ?? ''),
+            $response->requestDate ?? '',
+            $response->valid ?? false,
+            $response->name ?? null,
+            $response->address ?? null
+        );
     }
 
     /**
