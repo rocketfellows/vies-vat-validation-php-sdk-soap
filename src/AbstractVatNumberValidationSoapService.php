@@ -32,6 +32,7 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
     private const SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ = 'GLOBAL_MAX_CONCURRENT_REQ';
     private const SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ_TIME = 'GLOBAL_MAX_CONCURRENT_REQ_TIME';
     private const SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ = 'MS_MAX_CONCURRENT_REQ';
+    private const SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ_TIME = 'MS_MAX_CONCURRENT_REQ_TIME';
 
     private $soapClientFactory;
 
