@@ -6,6 +6,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -78,6 +79,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('TIMEOUT', 'TIMEOUT'),
                 'expectedExceptionClass' => TimeoutServiceException::class,
+            ],
+            'INVALID_REQUESTER_INFO fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('INVALID_REQUESTER_INFO', 'INVALID_REQUESTER_INFO'),
+                'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
         ];
     }
