@@ -42,6 +42,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
         );
     }
 
+    public function testSuccessCheckVat(): void
+    {
+        // TODO: implement
+    }
+
     /**
      * @dataProvider getHandlingCheckVatFaultProvidedData
      */
