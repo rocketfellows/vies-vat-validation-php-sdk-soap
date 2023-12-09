@@ -50,6 +50,20 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
         // TODO: Implement validateVat() method.
     }
 
+    /**
+     * @throws GlobalMaxConcurrentReqServiceException
+     * @throws GlobalMaxConcurrentReqTimeServiceException
+     * @throws IPBlockedServiceException
+     * @throws InvalidInputServiceException
+     * @throws InvalidRequesterInfoServiceException
+     * @throws MSMaxConcurrentReqServiceException
+     * @throws MSMaxConcurrentReqTimeServiceException
+     * @throws MSUnavailableServiceException
+     * @throws ServiceUnavailableException
+     * @throws TimeoutServiceException
+     * @throws UnknownServiceErrorException
+     * @throws VatBlockedServiceException
+     */
     private function handleSoapFault(SoapFault $fault): void
     {
         switch ($fault->getMessage()) {
