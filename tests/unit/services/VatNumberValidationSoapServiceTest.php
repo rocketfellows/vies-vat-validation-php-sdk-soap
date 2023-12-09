@@ -203,7 +203,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
     }
 
     /**
-     * @param string[] $methodsNames
+     * @param string ...$methodsNames
      * @return SoapClient|MockObject
      */
     private function getSoapClientMock(string ...$methodsNames): SoapClient
