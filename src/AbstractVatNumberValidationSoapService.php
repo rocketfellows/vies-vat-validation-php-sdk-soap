@@ -52,7 +52,6 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
 
     private function handleSoapFault(SoapFault $fault): void
     {
-        // TODO: implement
         switch ($fault->getMessage()) {
             case self::SOAP_FAULT_CODE_INVALID_INPUT:
                 throw new InvalidInputServiceException($fault->getMessage(), $fault->getCode(), $fault);
