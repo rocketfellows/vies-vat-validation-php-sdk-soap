@@ -42,6 +42,8 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
         $this->soapClientFactory = $soapClientFactory;
     }
 
+    abstract protected function getWsdlSource(): string;
+
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
         // TODO: Implement validateVat() method.
