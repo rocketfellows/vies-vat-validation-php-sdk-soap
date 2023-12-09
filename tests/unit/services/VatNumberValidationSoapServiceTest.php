@@ -15,6 +15,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentR
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
@@ -120,6 +121,11 @@ class VatNumberValidationSoapServiceTest extends TestCase
                 'vatNumber' => new VatNumber('DE', '12312312'),
                 'thrownCheckVatFault' => new SoapFault('MS_MAX_CONCURRENT_REQ_TIME', 'MS_MAX_CONCURRENT_REQ_TIME'),
                 'expectedExceptionClass' => MSMaxConcurrentReqTimeServiceException::class,
+            ],
+            'unknown fault' => [
+                'vatNumber' => new VatNumber('DE', '12312312'),
+                'thrownCheckVatFault' => new SoapFault('foo', 'foo'),
+                'expectedExceptionClass' => UnknownServiceErrorException::class,
             ],
         ];
     }
