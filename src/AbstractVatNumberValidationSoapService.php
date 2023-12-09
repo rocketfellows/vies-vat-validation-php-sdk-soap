@@ -2,6 +2,7 @@
 
 namespace rocketfellows\ViesVatValidationSoap;
 
+use Exception;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqTimeServiceException;
@@ -22,7 +23,7 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 use SoapFault;
 use stdClass;
 
-class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
+abstract class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
     private const SOAP_FAULT_CODE_INVALID_INPUT = 'INVALID_INPUT';
     private const SOAP_FAULT_CODE_SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE';
@@ -48,7 +49,20 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
 
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
-        // TODO: Implement validateVat() method.
+        try {
+            $client = $this->soapClientFactory->create($this->getWsdlSource());
+
+            return $this->handleResponse(
+                $client->checkVat([
+                    'countryCode' => $vatNumber->getCountryCode(),
+                    'vatNumber' => $vatNumber->getVatNumber(),
+                ])
+            );
+        } catch (SoapFault $exception) {
+            throw $this->handleSoapFault($exception);
+        } catch (Exception $exception) {
+            throw new ServiceRequestException($exception->getMessage(), $exception->getCode(), $exception);
+        }
     }
 
     private function handleResponse(stdClass $response): VatNumberValidationResult
@@ -63,46 +77,46 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
     }
 
     /**
-     * @throws GlobalMaxConcurrentReqServiceException
-     * @throws GlobalMaxConcurrentReqTimeServiceException
-     * @throws IPBlockedServiceException
-     * @throws InvalidInputServiceException
-     * @throws InvalidRequesterInfoServiceException
-     * @throws MSMaxConcurrentReqServiceException
-     * @throws MSMaxConcurrentReqTimeServiceException
-     * @throws MSUnavailableServiceException
-     * @throws ServiceUnavailableException
-     * @throws TimeoutServiceException
-     * @throws UnknownServiceErrorException
-     * @throws VatBlockedServiceException
+     * @return GlobalMaxConcurrentReqServiceException
+     * @return GlobalMaxConcurrentReqTimeServiceException
+     * @return IPBlockedServiceException
+     * @return InvalidInputServiceException
+     * @return InvalidRequesterInfoServiceException
+     * @return MSMaxConcurrentReqServiceException
+     * @return MSMaxConcurrentReqTimeServiceException
+     * @return MSUnavailableServiceException
+     * @return ServiceUnavailableException
+     * @return TimeoutServiceException
+     * @return UnknownServiceErrorException
+     * @return VatBlockedServiceException
      */
-    private function handleSoapFault(SoapFault $fault): void
+    private function handleSoapFault(SoapFault $fault): Exception
     {
         switch ($fault->getMessage()) {
             case self::SOAP_FAULT_CODE_INVALID_INPUT:
-                throw new InvalidInputServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new InvalidInputServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_SERVICE_UNAVAILABLE:
-                throw new ServiceUnavailableException($fault->getMessage(), $fault->getCode(), $fault);
+                return new ServiceUnavailableException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_MS_UNAVAILABLE:
-                throw new MSUnavailableServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new MSUnavailableServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_TIMEOUT:
-                throw new TimeoutServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new TimeoutServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_INVALID_REQUESTER_INFO:
-                throw new InvalidRequesterInfoServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new InvalidRequesterInfoServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_VAT_BLOCKED:
-                throw new VatBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new VatBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_IP_BLOCKED:
-                throw new IPBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new IPBlockedServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ:
-                throw new GlobalMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new GlobalMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ_TIME:
-                throw new GlobalMaxConcurrentReqTimeServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new GlobalMaxConcurrentReqTimeServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ:
-                throw new MSMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new MSMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ_TIME:
-                throw new MSMaxConcurrentReqTimeServiceException($fault->getMessage(), $fault->getCode(), $fault);
+                return new MSMaxConcurrentReqTimeServiceException($fault->getMessage(), $fault->getCode(), $fault);
             default:
-                throw new UnknownServiceErrorException($fault->getMessage(), $fault->getCode(), $fault);
+                return new UnknownServiceErrorException($fault->getMessage(), $fault->getCode(), $fault);
         }
     }
 }
