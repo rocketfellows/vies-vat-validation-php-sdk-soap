@@ -72,6 +72,8 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
                 throw new GlobalMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
             case self::SOAP_FAULT_CODE_GLOBAL_MAX_CONCURRENT_REQ_TIME:
                 throw new GlobalMaxConcurrentReqTimeServiceException($fault->getMessage(), $fault->getCode(), $fault);
+            case self::SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ:
+                throw new MSMaxConcurrentReqServiceException($fault->getMessage(), $fault->getCode(), $fault);
         }
     }
 }
