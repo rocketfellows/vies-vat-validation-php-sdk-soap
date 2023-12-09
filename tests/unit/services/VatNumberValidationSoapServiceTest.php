@@ -22,8 +22,6 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServic
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
-use rocketfellows\ViesVatValidationSoap\AbstractVatNumberValidationSoapService;
-use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 use SoapFault;
 use stdClass;
 
