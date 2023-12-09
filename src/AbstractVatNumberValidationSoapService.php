@@ -19,6 +19,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServic
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
+use SoapFault;
 
 class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
@@ -47,5 +48,10 @@ class AbstractVatNumberValidationSoapService implements VatNumberValidationServi
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
         // TODO: Implement validateVat() method.
+    }
+
+    private function handleSoapFault(SoapFault $fault): void
+    {
+        // TODO: implement
     }
 }
