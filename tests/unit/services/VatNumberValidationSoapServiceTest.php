@@ -64,7 +64,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
         $this->expectException(ServiceRequestException::class);
 
         $this->vatNumberValidationSoapService->validateVat(
-            new VatNumber(self::COUNTRY_CODE_TEST_VALUE, self::VAT_NUMBER_TEST_VALUE)
+            $this->getValidatingVatNumberTestValue()
         );
     }
 
@@ -78,7 +78,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
         $this->expectException(ServiceRequestException::class);
 
         $this->vatNumberValidationSoapService->validateVat(
-            new VatNumber(self::COUNTRY_CODE_TEST_VALUE, self::VAT_NUMBER_TEST_VALUE)
+            $this->getValidatingVatNumberTestValue()
         );
     }
 
@@ -423,5 +423,10 @@ class VatNumberValidationSoapServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->addMethods($methodsNames)
             ->getMock();
+    }
+
+    private function getValidatingVatNumberTestValue(): VatNumber
+    {
+        return new VatNumber(self::COUNTRY_CODE_TEST_VALUE, self::VAT_NUMBER_TEST_VALUE);
     }
 }
