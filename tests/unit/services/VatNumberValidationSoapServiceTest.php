@@ -21,6 +21,8 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceEr
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
+use rocketfellows\ViesVatValidationSoap\AbstractVatNumberValidationSoapService;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 use SoapFault;
 use stdClass;
@@ -28,15 +30,17 @@ use stdClass;
 /**
  * @group vies-vat-validation-soap
  */
-class VatNumberValidationSoapServiceTest extends TestCase
+abstract class VatNumberValidationSoapServiceTest extends TestCase
 {
-    protected const EXPECTED_WSDL_SOURCE = 'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl';
+    protected const EXPECTED_WSDL_SOURCE = '';
 
     private const COUNTRY_CODE_TEST_VALUE = 'DE';
     private const VAT_NUMBER_TEST_VALUE = '123123';
 
-    private $vatNumberValidationSoapService;
-    private $soapClientFactory;
+    protected $vatNumberValidationSoapService;
+    protected $soapClientFactory;
+
+    abstract protected function getVatNumberValidationSoapService(): VatNumberValidationServiceInterface;
 
     protected function setUp(): void
     {
@@ -44,9 +48,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
 
         $this->soapClientFactory = $this->createMock(SoapClientFactory::class);
 
-        $this->vatNumberValidationSoapService = new VatNumberValidationSoapService(
-            $this->soapClientFactory
-        );
+        $this->vatNumberValidationSoapService = $this->getVatNumberValidationSoapService();
     }
 
     public function testHandleCheckVatException(): void
@@ -59,7 +61,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
 
         $this->soapClientFactory
             ->method('create')
-            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->with($this::EXPECTED_WSDL_SOURCE)
             ->willReturn($client);
 
         $this->expectException(ServiceRequestException::class);
@@ -73,7 +75,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
     {
         $this->soapClientFactory
             ->method('create')
-            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->with($this::EXPECTED_WSDL_SOURCE)
             ->willThrowException(new Exception());
 
         $this->expectException(ServiceRequestException::class);
@@ -97,7 +99,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
 
         $this->soapClientFactory
             ->method('create')
-            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->with($this::EXPECTED_WSDL_SOURCE)
             ->willReturn($client);
 
         $this->assertEquals(
@@ -219,7 +221,7 @@ class VatNumberValidationSoapServiceTest extends TestCase
 
         $this->soapClientFactory
             ->method('create')
-            ->with(self::EXPECTED_WSDL_SOURCE)
+            ->with($this::EXPECTED_WSDL_SOURCE)
             ->willReturn($client);
 
         $this->expectException($expectedExceptionClass);
