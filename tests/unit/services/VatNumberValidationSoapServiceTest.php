@@ -68,63 +68,135 @@ class VatNumberValidationSoapServiceTest extends TestCase
     {
         return [
             'INVALID_INPUT fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('INVALID_INPUT', 'INVALID_INPUT'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'INVALID_INPUT',
+                    'INVALID_INPUT'
+                ),
                 'expectedExceptionClass' => InvalidInputServiceException::class,
             ],
             'SERVICE_UNAVAILABLE fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('SERVICE_UNAVAILABLE', 'SERVICE_UNAVAILABLE'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'SERVICE_UNAVAILABLE',
+                    'SERVICE_UNAVAILABLE'
+                ),
                 'expectedExceptionClass' => ServiceUnavailableException::class,
             ],
             'MS_UNAVAILABLE fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('MS_UNAVAILABLE', 'MS_UNAVAILABLE'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'MS_UNAVAILABLE',
+                    'MS_UNAVAILABLE'
+                ),
                 'expectedExceptionClass' => MSUnavailableServiceException::class,
             ],
             'TIMEOUT fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('TIMEOUT', 'TIMEOUT'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'TIMEOUT',
+                    'TIMEOUT'
+                ),
                 'expectedExceptionClass' => TimeoutServiceException::class,
             ],
             'INVALID_REQUESTER_INFO fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('INVALID_REQUESTER_INFO', 'INVALID_REQUESTER_INFO'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'INVALID_REQUESTER_INFO',
+                    'INVALID_REQUESTER_INFO'
+                ),
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
             'VAT_BLOCKED fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('VAT_BLOCKED', 'VAT_BLOCKED'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'VAT_BLOCKED',
+                    'VAT_BLOCKED'
+                ),
                 'expectedExceptionClass' => VatBlockedServiceException::class,
             ],
             'IP_BLOCKED fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('IP_BLOCKED', 'IP_BLOCKED'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'IP_BLOCKED',
+                    'IP_BLOCKED'
+                ),
                 'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
             'GLOBAL_MAX_CONCURRENT_REQ fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('GLOBAL_MAX_CONCURRENT_REQ', 'GLOBAL_MAX_CONCURRENT_REQ'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'GLOBAL_MAX_CONCURRENT_REQ',
+                    'GLOBAL_MAX_CONCURRENT_REQ'
+                ),
                 'expectedExceptionClass' => GlobalMaxConcurrentReqServiceException::class,
             ],
             'GLOBAL_MAX_CONCURRENT_REQ_TIME fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('GLOBAL_MAX_CONCURRENT_REQ_TIME', 'GLOBAL_MAX_CONCURRENT_REQ_TIME'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'GLOBAL_MAX_CONCURRENT_REQ_TIME',
+                    'GLOBAL_MAX_CONCURRENT_REQ_TIME'
+                ),
                 'expectedExceptionClass' => GlobalMaxConcurrentReqTimeServiceException::class,
             ],
             'MS_MAX_CONCURRENT_REQ fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('MS_MAX_CONCURRENT_REQ', 'MS_MAX_CONCURRENT_REQ'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'MS_MAX_CONCURRENT_REQ',
+                    'MS_MAX_CONCURRENT_REQ'
+                ),
                 'expectedExceptionClass' => MSMaxConcurrentReqServiceException::class,
             ],
             'MS_MAX_CONCURRENT_REQ_TIME fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('MS_MAX_CONCURRENT_REQ_TIME', 'MS_MAX_CONCURRENT_REQ_TIME'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'MS_MAX_CONCURRENT_REQ_TIME',
+                    'MS_MAX_CONCURRENT_REQ_TIME'
+                ),
                 'expectedExceptionClass' => MSMaxConcurrentReqTimeServiceException::class,
             ],
             'unknown fault' => [
-                'vatNumber' => new VatNumber('DE', '12312312'),
-                'thrownCheckVatFault' => new SoapFault('foo', 'foo'),
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'thrownCheckVatFault' => new SoapFault(
+                    'foo',
+                    'foo'
+                ),
                 'expectedExceptionClass' => UnknownServiceErrorException::class,
             ],
         ];
