@@ -34,6 +34,8 @@ For the SOAP service, three WSDLs are available:
 
 `AbstractVatNumberValidationSoapService` - is an abstract class that implements the interface https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface and is intended for sending a request for VAT validation using the SOAP protocol, processing response/faults and returning an object of type validation result.
 
+`VatNumberValidationSoapService` is an inheritor of the `AbstractVatNumberValidationSoapService` class, configured to send a request to the sales service according to wsdl https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl.
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
