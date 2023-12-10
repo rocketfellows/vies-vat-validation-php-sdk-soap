@@ -21,6 +21,15 @@ Current implementation dependencies:
 - https://github.com/rocketfellows/soap-client-factory v1.0.0;
 - https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface v1.0.0.
 
+## VIES VAT number validation SOAP service.
+
+For more information about VIES VAT number validation SOAP service see: https://ec.europa.eu/taxation_customs/vies/#/technical-information.
+
+For the SOAP service, three WSDLs are available:
+- https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl to verify the validity of a VAT number;
+- https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl to verify the integration with the original service by using the below values (common for all Member States / CountryCodes) for each required result: `vatNumber` value=100, response= VALID;
+  `vatNumber` value=200, response = INVALID;
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
