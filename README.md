@@ -49,14 +49,16 @@ TODO: add description.
 VAT number validation result (VAT is valid):
 
 ```php
-// Service initialization
-$service = new VatNumberValidationSoapService(
-    (new \rocketfellows\SoapClientFactory\SoapClientFactory())
-);
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 
-$validationResult = $service->validateVat(
-    \rocketfellows\ViesVatValidationInterface\VatNumber::create('DE', '206223519')
-);
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapService((new SoapClientFactory()));
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
 
 var_dump($validationResult);
 ```
