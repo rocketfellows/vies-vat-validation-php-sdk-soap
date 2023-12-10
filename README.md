@@ -50,9 +50,13 @@ VAT number validation result (VAT is valid):
 
 ```php
 // Service initialization
-$service = new VatNumberValidationSoapService((new \rocketfellows\SoapClientFactory\SoapClientFactory()));
+$service = new VatNumberValidationSoapService(
+    (new \rocketfellows\SoapClientFactory\SoapClientFactory())
+);
 
-$validationResult = $service->validateVat(\rocketfellows\ViesVatValidationInterface\VatNumber::create('DE', '206223519'));
+$validationResult = $service->validateVat(
+    \rocketfellows\ViesVatValidationInterface\VatNumber::create('DE', '206223519')
+);
 
 var_dump($validationResult);
 ```
