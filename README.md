@@ -40,6 +40,10 @@ For the SOAP service, three WSDLs are available:
 
 `VatNumberValidationSoapExpansibleService` - is an inheritor of the `AbstractVatNumberValidationSoapService` class, configured to send a request to the service according to wsdl, passed through the class constructor (customizable service).
 
+## Usage examples.
+
+TODO: add description.
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
