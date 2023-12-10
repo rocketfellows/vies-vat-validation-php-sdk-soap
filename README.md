@@ -6,3 +6,5 @@
 
 An implementation of interface https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface for the VIES service for checking the validity of the VAT number via the SOAP protocol.
 The implementation is designed to send a request and process a response from the VAT validation service via the SOAP protocol.
+
+For more information about VIES VAT number validation services via the SOAP protocol see https://ec.europa.eu/taxation_customs/vies/#/technical-information.
