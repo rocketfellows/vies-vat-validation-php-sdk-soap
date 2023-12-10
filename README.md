@@ -38,6 +38,8 @@ For the SOAP service, three WSDLs are available:
 
 `VatNumberValidationSoapTestService` - is an inheritor of the `AbstractVatNumberValidationSoapService` class, configured to send a request to the test service according to wsdl https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl.
 
+`VatNumberValidationSoapExpansibleService` - is an inheritor of the `AbstractVatNumberValidationSoapService` class, configured to send a request to the service according to wsdl, passed through the class constructor (customizable service).
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
