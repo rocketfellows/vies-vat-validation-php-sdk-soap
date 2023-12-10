@@ -14,3 +14,9 @@ For more information about VIES VAT number validation services via the SOAP prot
 ```shell
 composer require rocketfellows/vies-vat-validation-php-sdk-soap
 ```
+
+## Contributing.
+
+Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
+
+Please make sure to update tests as appropriate.
