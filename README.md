@@ -44,7 +44,7 @@ For the SOAP service, three WSDLs are available:
 
 TODO: add description.
 
-### `VatNumberValidationSoapService` usage.
+### VatNumberValidationSoapService usage.
 
 <hr>
 
