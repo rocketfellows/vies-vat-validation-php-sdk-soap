@@ -15,6 +15,12 @@ For more information about VIES VAT number validation services via the SOAP prot
 composer require rocketfellows/vies-vat-validation-php-sdk-soap
 ```
 
+## Dependencies.
+
+Current implementation dependencies:
+- https://github.com/rocketfellows/soap-client-factory v1.0.0;
+- https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface v1.0.0.
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
