@@ -44,6 +44,38 @@ For the SOAP service, three WSDLs are available:
 
 TODO: add description.
 
+### VatNumberValidationSoapService usage.
+
+VAT number validation result (VAT is valid):
+
+```php
+// Service initialization
+$service = new VatNumberValidationSoapService((new \rocketfellows\SoapClientFactory\SoapClientFactory()));
+
+$validationResult = $service->validateVat(\rocketfellows\ViesVatValidationInterface\VatNumber::create('DE', '206223519'));
+
+var_dump($validationResult);
+```
+```shell
+class rocketfellows\ViesVatValidationInterface\VatNumberValidationResult#9 (5) {
+  private $vatNumber =>
+  class rocketfellows\ViesVatValidationInterface\VatNumber#8 (2) {
+    private $countryCode =>
+    string(2) "DE"
+    private $vatNumber =>
+    string(9) "206223519"
+  }
+  private $requestDate =>
+  string(16) "2023-12-10+01:00"
+  private $isValid =>
+  bool(true)
+  private $name =>
+  string(3) "---"
+  private $address =>
+  string(3) "---"
+}
+```
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
