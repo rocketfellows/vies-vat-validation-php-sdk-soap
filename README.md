@@ -46,6 +46,8 @@ TODO: add description.
 
 ### VatNumberValidationSoapService usage.
 
+<hr>
+
 VAT number validation result (VAT is valid):
 
 ```php
