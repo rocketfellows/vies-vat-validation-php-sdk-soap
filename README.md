@@ -65,18 +65,23 @@ $validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
 var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
 var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
 var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
-var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
 var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
 var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
 ```
 ```shell
+/home/app/index.php:14:
 "VAT country code: DE"
 "VAT number: 206223519"
 "Request date: 2023-12-11+01:00"
-"Is VAT valid: 1"
+"Is VAT valid: true"
 "VAT holder name: ---"
 "VAT holder address: ---"
 ```
+
+VAT number validation result (VAT is not valid):
+
+
 
 ## Contributing.
 
