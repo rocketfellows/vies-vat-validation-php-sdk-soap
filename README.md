@@ -108,6 +108,137 @@ VAT holder name: ---
 VAT holder address: ---
 ```
 
+### VatNumberValidationSoapTestService usage.
+
+<hr>
+
+According to https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl here is the list of VAT Number to use to receive each kind of answer:
+- 100 = Valid request with Valid VAT Number
+- 200 = Valid request with an Invalid VAT Number
+- 201 = Error : INVALID_INPUT
+- 202 = Error : INVALID_REQUESTER_INFO
+- 300 = Error : SERVICE_UNAVAILABLE
+- 301 = Error : MS_UNAVAILABLE
+- 302 = Error : TIMEOUT
+- 400 = Error : VAT_BLOCKED
+- 401 = Error : IP_BLOCKED
+- 500 = Error : GLOBAL_MAX_CONCURRENT_REQ
+- 501 = Error : GLOBAL_MAX_CONCURRENT_REQ_TIME
+- 600 = Error : MS_MAX_CONCURRENT_REQ
+- 601 = Error : MS_MAX_CONCURRENT_REQ_TIME
+
+For all the other cases, The web service will responds with a "SERVICE_UNAVAILABLE" error.
+
+Some usage examples below.
+
+VAT number validation result (VAT is valid):
+
+```php
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '100'));
+
+var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
+var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
+var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
+var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
+var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
+```
+```php
+VAT country code: DE
+VAT number: 100
+Request date: 2023-12-13+01:00
+Is VAT valid: true
+VAT holder name: John Doe
+VAT holder address: 123 Main St, Anytown, UK
+```
+
+VAT number validation result (VAT is not valid):
+
+```php
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '200'));
+
+var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
+var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
+var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
+var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
+var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
+```
+```php
+VAT country code: DE
+VAT number: 200
+Request date: 2023-12-13+01:00
+Is VAT valid: false
+VAT holder name: ---
+VAT holder address: ---
+```
+
+VAT number validation resulted with INVALID_INPUT fault:
+
+```php
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+
+try {
+    $validationResult = $service->validateVat(VatNumber::create('DE', '201'));
+} catch (Exception $exception) {
+    var_dump(get_class($exception));
+    var_dump($exception->getMessage());
+}
+```
+```php
+rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException
+INVALID_INPUT
+```
+
+VAT number validation resulted with IP_BLOCKED fault:
+
+```php
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+
+try {
+    $validationResult = $service->validateVat(VatNumber::create('DE', '401'));
+} catch (Exception $exception) {
+    var_dump(get_class($exception));
+    var_dump($exception->getMessage());
+}
+```
+```php
+rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException
+IP_BLOCKED
+```
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
