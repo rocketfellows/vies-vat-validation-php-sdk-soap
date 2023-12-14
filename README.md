@@ -42,8 +42,6 @@ For the SOAP service, three WSDLs are available:
 
 ## Usage examples.
 
-TODO: add description.
-
 ### VatNumberValidationSoapService usage.
 
 <hr>
@@ -237,6 +235,80 @@ try {
 ```php
 rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException
 IP_BLOCKED
+```
+
+### VatNumberValidationSoapExpansibleService usage.
+
+<hr>
+
+`VatNumberValidationSoapExpansibleService` - is an inheritor of the `AbstractVatNumberValidationSoapService` class, configured to send a request to the service according to wsdl, passed through the class constructor (customizable service).
+
+For example init service with wsdl - https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl.
+
+VAT number validation result (VAT is valid):
+
+```php
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapExpansibleService(
+    'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl',
+    (new SoapClientFactory())
+);
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
+
+var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
+var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
+var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
+var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
+var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
+```
+```php
+VAT country code: DE
+VAT number: 206223519
+Request date: 2023-12-11+01:00
+Is VAT valid: true
+VAT holder name: ---
+VAT holder address: ---
+```
+
+VAT number validation result (VAT is not valid):
+
+```php
+use rocketfellows\SoapClientFactory\SoapClientFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationSoapExpansibleService(
+    'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl',
+    (new SoapClientFactory())
+);
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));
+
+var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
+var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
+var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
+var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
+var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
+```
+```php
+VAT country code: DE
+VAT number: 206223511
+Request date: 2023-12-11+01:00
+Is VAT valid: false
+VAT holder name: ---
+VAT holder address: ---
 ```
 
 ## Contributing.
