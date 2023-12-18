@@ -30,6 +30,10 @@ use stdClass;
  */
 abstract class VatNumberValidationServiceTest extends TestCase
 {
+    private const EXPECTED_INTERFACE_IMPLEMENTATIONS = [
+        VatNumberValidationServiceInterface::class,
+    ];
+
     protected const EXPECTED_WSDL_SOURCE = '';
 
     private const COUNTRY_CODE_TEST_VALUE = 'DE';
