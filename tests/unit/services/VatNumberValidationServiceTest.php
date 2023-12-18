@@ -53,6 +53,13 @@ abstract class VatNumberValidationServiceTest extends TestCase
         $this->vatNumberValidationSoapService = $this->getVatNumberValidationSoapService();
     }
 
+    public function testVatNumberValidationSoapServiceImplementedInterfaces(): void
+    {
+        foreach (self::EXPECTED_INTERFACE_IMPLEMENTATIONS as $expectedInterfaceImplementation) {
+            $this->assertInstanceOf($expectedInterfaceImplementation, $this->vatNumberValidationSoapService);
+        }
+    }
+
     public function testHandleCheckVatException(): void
     {
         $client = $this->getSoapClientMock('checkVat');
