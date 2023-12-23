@@ -529,6 +529,21 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 ),
                 'expectedExceptionClass' => MSMaxConcurrentReqServiceException::class,
             ],
+            'ms_max_concurrent_req fault' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'thrownCheckVatFault' => new SoapFault(
+                    'ms_max_concurrent_req',
+                    'ms_max_concurrent_req'
+                ),
+                'expectedExceptionClass' => MSMaxConcurrentReqServiceException::class,
+            ],
             'MS_MAX_CONCURRENT_REQ_TIME fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
