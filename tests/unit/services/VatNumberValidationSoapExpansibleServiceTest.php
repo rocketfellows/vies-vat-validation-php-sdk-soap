@@ -14,6 +14,10 @@ class VatNumberValidationSoapExpansibleServiceTest extends VatNumberValidationSe
 
     protected function getVatNumberValidationSoapService(): VatNumberValidationServiceInterface
     {
-        return new VatNumberValidationSoapExpansibleService(self::EXPECTED_WSDL_SOURCE, $this->soapClientFactory);
+        return new VatNumberValidationSoapExpansibleService(
+            self::EXPECTED_WSDL_SOURCE,
+            $this->faultCodeExceptionFactory,
+            $this->soapClientFactory
+        );
     }
 }

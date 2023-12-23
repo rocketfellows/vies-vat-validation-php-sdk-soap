@@ -19,6 +19,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailab
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
@@ -40,6 +41,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     private const VAT_NUMBER_TEST_VALUE = '123123';
 
     protected $vatNumberValidationSoapService;
+    protected $faultCodeExceptionFactory;
     protected $soapClientFactory;
 
     abstract protected function getVatNumberValidationSoapService(): VatNumberValidationServiceInterface;
@@ -48,6 +50,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     {
         parent::setUp();
 
+        $this->faultCodeExceptionFactory = new FaultCodeExceptionFactory();
         $this->soapClientFactory = $this->createMock(SoapClientFactory::class);
 
         $this->vatNumberValidationSoapService = $this->getVatNumberValidationSoapService();

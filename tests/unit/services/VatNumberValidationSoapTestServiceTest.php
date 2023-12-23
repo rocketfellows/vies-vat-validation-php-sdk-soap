@@ -14,6 +14,9 @@ class VatNumberValidationSoapTestServiceTest extends VatNumberValidationServiceT
 
     protected function getVatNumberValidationSoapService(): VatNumberValidationServiceInterface
     {
-        return new VatNumberValidationSoapTestService($this->soapClientFactory);
+        return new VatNumberValidationSoapTestService(
+            $this->faultCodeExceptionFactory,
+            $this->soapClientFactory
+        );
     }
 }
