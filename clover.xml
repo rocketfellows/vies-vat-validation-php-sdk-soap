@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1702550781">
-  <project timestamp="1702550781">
+<coverage generated="1702896593">
+  <project timestamp="1702896593">
     <file name="/app/src/AbstractVatNumberValidationSoapService.php">
       <class name="rocketfellows\ViesVatValidationSoap\AbstractVatNumberValidationSoapService" namespace="global">
         <metrics complexity="18" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="43" elements="47" coveredelements="47"/>
       </class>
-      <line num="42" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="54"/>
-      <line num="45" type="stmt" count="54"/>
+      <line num="42" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="57"/>
+      <line num="45" type="stmt" count="57"/>
       <line num="50" type="method" name="validateVat" visibility="public" complexity="3" crap="3" count="54"/>
       <line num="53" type="stmt" count="54"/>
       <line num="55" type="stmt" count="51"/>
@@ -58,9 +58,9 @@
       <class name="rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService" namespace="global">
         <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </class>
-      <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="18"/>
-      <line num="16" type="stmt" count="18"/>
-      <line num="18" type="stmt" count="18"/>
+      <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="19"/>
+      <line num="16" type="stmt" count="19"/>
+      <line num="18" type="stmt" count="19"/>
       <line num="21" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="18"/>
       <line num="23" type="stmt" count="18"/>
       <metrics loc="26" ncloc="26" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
