@@ -49,6 +49,7 @@ For the SOAP service, three WSDLs are available:
 VAT number validation result (VAT is valid):
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
@@ -56,7 +57,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapService((new SoapClientFactory()));
+$service = new VatNumberValidationSoapService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
 
@@ -79,6 +80,7 @@ VAT holder address: ---
 VAT number validation result (VAT is not valid):
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
@@ -86,7 +88,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapService((new SoapClientFactory()));
+$service = new VatNumberValidationSoapService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));
 
@@ -132,6 +134,7 @@ Some usage examples below.
 VAT number validation result (VAT is valid):
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
@@ -139,7 +142,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestServ
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '100'));
 
@@ -162,6 +165,7 @@ VAT holder address: 123 Main St, Anytown, UK
 VAT number validation result (VAT is not valid):
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
@@ -169,7 +173,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestServ
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '200'));
 
@@ -192,6 +196,7 @@ VAT holder address: ---
 VAT number validation resulted with INVALID_INPUT fault:
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
@@ -199,7 +204,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestServ
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
 
 try {
     $validationResult = $service->validateVat(VatNumber::create('DE', '201'));
@@ -216,6 +221,7 @@ INVALID_INPUT
 VAT number validation resulted with IP_BLOCKED fault:
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
@@ -223,7 +229,7 @@ use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestServ
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
 
 try {
     $validationResult = $service->validateVat(VatNumber::create('DE', '401'));
@@ -248,6 +254,7 @@ For example init service with wsdl - https://ec.europa.eu/taxation_customs/vies/
 VAT number validation result (VAT is valid):
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService;
@@ -257,6 +264,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Service initialization
 $service = new VatNumberValidationSoapExpansibleService(
     'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl',
+    (new FaultCodeExceptionFactory()),
     (new SoapClientFactory())
 );
 
@@ -281,6 +289,7 @@ VAT holder address: ---
 VAT number validation result (VAT is not valid):
 
 ```php
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService;
@@ -290,6 +299,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Service initialization
 $service = new VatNumberValidationSoapExpansibleService(
     'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl',
+    (new FaultCodeExceptionFactory()),
     (new SoapClientFactory())
 );
 
