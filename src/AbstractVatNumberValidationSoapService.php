@@ -17,6 +17,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailab
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
@@ -37,11 +38,14 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
     private const SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ = 'MS_MAX_CONCURRENT_REQ';
     private const SOAP_FAULT_CODE_MS_MAX_CONCURRENT_REQ_TIME = 'MS_MAX_CONCURRENT_REQ_TIME';
 
+    private $faultCodeExceptionFactory;
     private $soapClientFactory;
 
     public function __construct(
+        FaultCodeExceptionFactory $faultCodeExceptionFactory,
         SoapClientFactory $soapClientFactory
     ) {
+        $this->faultCodeExceptionFactory = $faultCodeExceptionFactory;
         $this->soapClientFactory = $soapClientFactory;
     }
 
