@@ -289,6 +289,21 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 ),
                 'expectedExceptionClass' => ServiceUnavailableException::class,
             ],
+            'service_unavailable fault' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'thrownCheckVatFault' => new SoapFault(
+                    'SERVICE_UNAVAILABLE',
+                    'SERVICE_UNAVAILABLE'
+                ),
+                'expectedExceptionClass' => ServiceUnavailableException::class,
+            ],
             'MS_UNAVAILABLE fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
