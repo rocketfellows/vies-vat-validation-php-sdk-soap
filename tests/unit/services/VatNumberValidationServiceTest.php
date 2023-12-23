@@ -379,6 +379,21 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 ),
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
+            'invalid_requester_info fault' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'thrownCheckVatFault' => new SoapFault(
+                    'invalid_requester_info',
+                    'invalid_requester_info'
+                ),
+                'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
+            ],
             'VAT_BLOCKED fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
