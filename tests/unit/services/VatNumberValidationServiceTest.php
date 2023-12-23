@@ -349,6 +349,21 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 ),
                 'expectedExceptionClass' => TimeoutServiceException::class,
             ],
+            'timeout fault' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'thrownCheckVatFault' => new SoapFault(
+                    'timeout',
+                    'timeout'
+                ),
+                'expectedExceptionClass' => TimeoutServiceException::class,
+            ],
             'INVALID_REQUESTER_INFO fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
