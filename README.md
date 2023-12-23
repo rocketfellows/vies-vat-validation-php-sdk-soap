@@ -19,7 +19,7 @@ composer require rocketfellows/vies-vat-validation-php-sdk-soap
 
 Current implementation dependencies:
 - https://github.com/rocketfellows/soap-client-factory v1.0.0;
-- https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface v1.0.0.
+- https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface v1.1.0.
 
 ## VIES VAT number validation SOAP service description.
 
