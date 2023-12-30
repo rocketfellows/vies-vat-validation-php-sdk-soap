@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1703337390">
-  <project timestamp="1703337390">
+<coverage generated="1703938555">
+  <project timestamp="1703938555">
     <file name="/app/src/AbstractVatNumberValidationSoapService.php">
       <class name="rocketfellows\ViesVatValidationSoap\AbstractVatNumberValidationSoapService" namespace="global">
         <metrics complexity="6" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="25" coveredelements="25"/>
