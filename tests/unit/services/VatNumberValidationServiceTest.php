@@ -19,6 +19,12 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceEx
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\CountryCodeAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\RequestDateAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\ValidationFlagAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\VatNumberAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\VatOwnerAddressAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\VatOwnerNameAttributeNotFoundException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
@@ -218,6 +224,262 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     '',
                     ''
                 ),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getCheckVatWithDifferentSetOfAttributesInResponseProvidedData
+     */
+    public function testHandlingCheckVatWithDifferentSetOfAttributesInResponse(
+        VatNumber $vatNumber,
+        array $checkVatCallArgs,
+        string $checkVatResponse,
+        string $expectedExceptionClass
+    ): void {
+        $client = $this->getSoapClientMock('checkVat');
+        $client->method('checkVat')->with($checkVatCallArgs)->willReturn($checkVatResponse);
+
+        $this->soapClientFactory
+            ->method('create')
+            ->with($this::EXPECTED_WSDL_SOURCE)
+            ->willReturn($client);
+
+        $this->expectException($expectedExceptionClass);
+
+        $this->vatNumberValidationSoapService->validateVat($vatNumber);
+    }
+
+    public function getCheckVatWithDifferentSetOfAttributesInResponseProvidedData(): array
+    {
+        return [
+            'response attributes in camel case, country code response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "vatNumber" => "12312312",
+                    "requestDate" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => CountryCodeAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, country code response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "vat_number" => "12312312",
+                    "request_date" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => CountryCodeAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, vat number response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "countryCode" => "DE",
+                    "requestDate" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => VatNumberAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, vat number response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "country_code" => "DE",
+                    "request_date" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => VatNumberAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, request date response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "countryCode" => "DE",
+                    "vatNumber" => "12312312",
+                    "valid" => true,
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => RequestDateAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, request date response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "country_code" => "DE",
+                    "vat_number" => "12312312",
+                    "valid" => true,
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => RequestDateAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, validation flag response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "countryCode" => "DE",
+                    "vatNumber" => "12312312",
+                    "requestDate" => "2023-11-11 23:23:23",
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => ValidationFlagAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, validation flag response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "country_code" => "DE",
+                    "vat_number" => "12312312",
+                    "request_date" => "2023-11-11 23:23:23",
+                    "name" => "foo",
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => ValidationFlagAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, name response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "countryCode" => "DE",
+                    "vatNumber" => "12312312",
+                    "requestDate" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => VatOwnerNameAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, name response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "country_code" => "DE",
+                    "vat_number" => "12312312",
+                    "request_date" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "address" => "bar",
+                ],
+                'expectedExceptionClass' => VatOwnerNameAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, address response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "countryCode" => "DE",
+                    "vatNumber" => "12312312",
+                    "requestDate" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "name" => "foo",
+                ],
+                'expectedExceptionClass' => VatOwnerAddressAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, address response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    "country_code" => "DE",
+                    "vat_number" => "12312312",
+                    "request_date" => "2023-11-11 23:23:23",
+                    "valid" => true,
+                    "name" => "foo",
+                ],
+                'expectedExceptionClass' => VatOwnerAddressAttributeNotFoundException::class,
+            ],
+            'response attributes not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [],
+                'expectedExceptionClass' => CountryCodeAttributeNotFoundException::class,
             ],
         ];
     }
