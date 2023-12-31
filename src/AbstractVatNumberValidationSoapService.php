@@ -51,13 +51,7 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
 
     private function handleResponse(stdClass $response): VatNumberValidationResult
     {
-        return VatNumberValidationResult::create(
-            VatNumber::create($response->countryCode ?? '', $response->vatNumber ?? ''),
-            $response->requestDate ?? '',
-            $response->valid ?? false,
-            $response->name ?? null,
-            $response->address ?? null
-        );
+        return $this->vatNumberValidationResultFactory->createFromObject($response);
     }
 
     private function handleSoapFault(SoapFault $fault): Exception
