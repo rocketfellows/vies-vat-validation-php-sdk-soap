@@ -2,7 +2,6 @@
 
 namespace rocketfellows\ViesVatValidationSoap;
 
-use Exception;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -10,7 +9,6 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
 use SoapFault;
-use stdClass;
 
 abstract class AbstractVatNumberValidationSoapService implements VatNumberValidationServiceInterface
 {
@@ -35,24 +33,14 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
         try {
             $client = $this->soapClientFactory->create($this->getWsdlSource());
 
-            return $this->handleResponse(
+            return $this->vatNumberValidationResultFactory->createFromObject(
                 $client->checkVat([
                     'countryCode' => $vatNumber->getCountryCode(),
                     'vatNumber' => $vatNumber->getVatNumber(),
                 ])
             );
         } catch (SoapFault $exception) {
-            throw $this->handleSoapFault($exception);
+            throw $this->faultCodeExceptionFactory->create($exception->getMessage(), $exception->getMessage());
         }
-    }
-
-    private function handleResponse(stdClass $response): VatNumberValidationResult
-    {
-        return $this->vatNumberValidationResultFactory->createFromObject($response);
-    }
-
-    private function handleSoapFault(SoapFault $fault): Exception
-    {
-        return $this->faultCodeExceptionFactory->create($fault->getMessage(), $fault->getMessage());
     }
 }
