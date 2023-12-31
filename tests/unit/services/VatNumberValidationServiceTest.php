@@ -341,7 +341,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     public function testHandlingCheckVatWithDifferentSetOfAttributesInResponse(
         VatNumber $vatNumber,
         array $checkVatCallArgs,
-        string $checkVatResponse,
+        stdClass $checkVatResponse,
         string $expectedExceptionClass
     ): void {
         $client = $this->getSoapClientMock('checkVat');
