@@ -8,6 +8,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
 use SoapFault;
 use stdClass;
@@ -16,13 +17,16 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
 {
     private $faultCodeExceptionFactory;
     private $soapClientFactory;
+    private $vatNumberValidationResultFactory;
 
     public function __construct(
         FaultCodeExceptionFactory $faultCodeExceptionFactory,
-        SoapClientFactory $soapClientFactory
+        SoapClientFactory $soapClientFactory,
+        VatNumberValidationResultFactory $vatNumberValidationResultFactory
     ) {
         $this->faultCodeExceptionFactory = $faultCodeExceptionFactory;
         $this->soapClientFactory = $soapClientFactory;
+        $this->vatNumberValidationResultFactory = $vatNumberValidationResultFactory;
     }
 
     abstract protected function getWsdlSource(): string;
