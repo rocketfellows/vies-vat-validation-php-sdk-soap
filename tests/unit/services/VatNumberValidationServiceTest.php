@@ -132,7 +132,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     public function getCheckVatProvidedData(): array
     {
         return [
-            'response country code set, vat number set, request date set, is valid, name set, address set' => [
+            'response attributes in camel case, response country code set, vat number set, request date set, is valid, name set, address set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -157,7 +157,32 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     'bar'
                 ),
             ],
-            'response country code set, vat number set, request date set, not valid, name set, address set' => [
+            'response attributes in snake case, response country code set, vat number set, request date set, is valid, name set, address set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'country_code' => 'DE',
+                    'vat_number' => '12312312',
+                    'request_date' => '2023-11-11 23:23:23',
+                    'valid' => true,
+                    'name' => 'foo',
+                    'address' => 'bar',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    true,
+                    'foo',
+                    'bar'
+                ),
+            ],
+            'response attributes in camel case, response country code set, vat number set, request date set, not valid, name set, address set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -182,7 +207,32 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     'bar'
                 ),
             ],
-            'response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
+            'response attributes in snake case, response country code set, vat number set, request date set, not valid, name set, address set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'country_code' => 'DE',
+                    'vat_number' => '12312312',
+                    'request_date' => '2023-11-11 23:23:23',
+                    'valid' => false,
+                    'name' => 'foo',
+                    'address' => 'bar',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    false,
+                    'foo',
+                    'bar'
+                ),
+            ],
+            'response attributes in camel case, response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -195,6 +245,31 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     'countryCode' => '',
                     'vatNumber' => '',
                     'requestDate' => '',
+                    'valid' => false,
+                    'name' => '',
+                    'address' => '',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    false,
+                    '',
+                    ''
+                ),
+            ],
+            'response attributes in snake case, response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'country_code' => '',
+                    'vat_number' => '',
+                    'request_date' => '',
                     'valid' => false,
                     'name' => '',
                     'address' => '',
