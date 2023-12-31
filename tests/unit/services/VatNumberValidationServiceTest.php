@@ -282,6 +282,56 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ''
                 ),
             ],
+            'response attributes in camel case, response country code empty, vat number empty, request date empty, is valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'countryCode' => '',
+                    'vatNumber' => '',
+                    'requestDate' => '',
+                    'valid' => true,
+                    'name' => '',
+                    'address' => '',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    true,
+                    '',
+                    ''
+                ),
+            ],
+            'response attributes in snake case, response country code empty, vat number empty, request date empty, is valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '12312312',
+                ],
+                'checkVatResponse' => (object) [
+                    'country_code' => '',
+                    'vat_number' => '',
+                    'request_date' => '',
+                    'valid' => true,
+                    'name' => '',
+                    'address' => '',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    true,
+                    '',
+                    ''
+                ),
+            ],
         ];
     }
 
