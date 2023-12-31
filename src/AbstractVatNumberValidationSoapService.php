@@ -4,7 +4,6 @@ namespace rocketfellows\ViesVatValidationSoap;
 
 use Exception;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
-use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
@@ -44,8 +43,6 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
             );
         } catch (SoapFault $exception) {
             throw $this->handleSoapFault($exception);
-        } catch (Exception $exception) {
-            throw new ServiceRequestException($exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 

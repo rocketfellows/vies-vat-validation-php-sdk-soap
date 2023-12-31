@@ -18,7 +18,6 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailab
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
-use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\CountryCodeAttributeNotFoundException;
 use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\RequestDateAttributeNotFoundException;
 use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\ValidationFlagAttributeNotFoundException;
@@ -72,38 +71,33 @@ abstract class VatNumberValidationServiceTest extends TestCase
         }
     }
 
-    public function testHandleCheckVatException(): void
-    {
-        $client = $this->getSoapClientMock('checkVat');
-        $client
-            ->method('checkVat')
-            ->with(['countryCode' => self::COUNTRY_CODE_TEST_VALUE, 'vatNumber' => self::VAT_NUMBER_TEST_VALUE])
-            ->willThrowException(new Exception());
-
+    /**
+     * @dataProvider getHandlingCreateSoapClientExceptionsProvidedData
+     */
+    public function testHandleCreateClientException(
+        Exception $thrownCreateSoapClientException,
+        string $expectedExceptionClass
+    ): void {
         $this->soapClientFactory
             ->method('create')
             ->with($this::EXPECTED_WSDL_SOURCE)
-            ->willReturn($client);
+            ->willThrowException($thrownCreateSoapClientException);
 
-        $this->expectException(ServiceRequestException::class);
+        $this->expectException($expectedExceptionClass);
 
         $this->vatNumberValidationSoapService->validateVat(
             $this->getValidatingVatNumberTestValue()
         );
     }
 
-    public function testHandleCreateClientException(): void
+    public function getHandlingCreateSoapClientExceptionsProvidedData(): array
     {
-        $this->soapClientFactory
-            ->method('create')
-            ->with($this::EXPECTED_WSDL_SOURCE)
-            ->willThrowException(new Exception());
-
-        $this->expectException(ServiceRequestException::class);
-
-        $this->vatNumberValidationSoapService->validateVat(
-            $this->getValidatingVatNumberTestValue()
-        );
+        return [
+            'thrown unknown SoapFault' => [
+                'thrownCreateSoapClientException' => new SoapFault('foo', 'bar'),
+                'expectedExceptionClass' => UnknownServiceErrorException::class,
+            ],
+        ];
     }
 
     /**
