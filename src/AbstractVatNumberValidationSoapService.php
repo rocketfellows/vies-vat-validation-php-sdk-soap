@@ -31,13 +31,12 @@ abstract class AbstractVatNumberValidationSoapService implements VatNumberValida
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
         try {
-            $client = $this->soapClientFactory->create($this->getWsdlSource());
-
             return $this->vatNumberValidationResultFactory->createFromObject(
-                $client->checkVat([
-                    'countryCode' => $vatNumber->getCountryCode(),
-                    'vatNumber' => $vatNumber->getVatNumber(),
-                ])
+                $this->soapClientFactory->create($this->getWsdlSource())
+                    ->checkVat([
+                        'countryCode' => $vatNumber->getCountryCode(),
+                        'vatNumber' => $vatNumber->getVatNumber(),
+                    ])
             );
         } catch (SoapFault $exception) {
             throw $this->faultCodeExceptionFactory->create($exception->getMessage(), $exception->getMessage());
