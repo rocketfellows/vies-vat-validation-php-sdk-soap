@@ -1,64 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1704006503">
-  <project timestamp="1704006503">
+<coverage generated="1704012630">
+  <project timestamp="1704012630">
     <file name="/app/src/AbstractVatNumberValidationSoapService.php">
       <class name="rocketfellows\ViesVatValidationSoap\AbstractVatNumberValidationSoapService" namespace="global">
-        <metrics complexity="6" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="25" coveredelements="25"/>
+        <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
       </class>
-      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="90"/>
-      <line num="24" type="stmt" count="90"/>
-      <line num="25" type="stmt" count="90"/>
-      <line num="30" type="method" name="validateVat" visibility="public" complexity="3" crap="3" count="87"/>
-      <line num="33" type="stmt" count="87"/>
-      <line num="35" type="stmt" count="84"/>
-      <line num="36" type="stmt" count="84"/>
-      <line num="37" type="stmt" count="84"/>
-      <line num="38" type="stmt" count="84"/>
-      <line num="39" type="stmt" count="84"/>
-      <line num="40" type="stmt" count="84"/>
-      <line num="41" type="stmt" count="75"/>
-      <line num="42" type="stmt" count="69"/>
-      <line num="43" type="stmt" count="6"/>
-      <line num="44" type="stmt" count="6"/>
-      <line num="48" type="method" name="handleResponse" visibility="private" complexity="1" crap="1" count="12"/>
-      <line num="50" type="stmt" count="12"/>
-      <line num="51" type="stmt" count="12"/>
-      <line num="52" type="stmt" count="12"/>
-      <line num="53" type="stmt" count="12"/>
-      <line num="54" type="stmt" count="12"/>
-      <line num="55" type="stmt" count="12"/>
-      <line num="56" type="stmt" count="12"/>
-      <line num="59" type="method" name="handleSoapFault" visibility="private" complexity="1" crap="1" count="69"/>
-      <line num="61" type="stmt" count="69"/>
-      <metrics loc="64" ncloc="64" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="25" coveredelements="25"/>
+      <line num="19" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="138"/>
+      <line num="24" type="stmt" count="138"/>
+      <line num="25" type="stmt" count="138"/>
+      <line num="26" type="stmt" count="138"/>
+      <line num="31" type="method" name="validateVat" visibility="public" complexity="2" crap="2" count="135"/>
+      <line num="34" type="stmt" count="135"/>
+      <line num="35" type="stmt" count="135"/>
+      <line num="36" type="stmt" count="135"/>
+      <line num="37" type="stmt" count="135"/>
+      <line num="38" type="stmt" count="135"/>
+      <line num="39" type="stmt" count="135"/>
+      <line num="40" type="stmt" count="135"/>
+      <line num="41" type="stmt" count="111"/>
+      <line num="42" type="stmt" count="72"/>
+      <metrics loc="46" ncloc="46" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
     </file>
     <file name="/app/src/services/VatNumberValidationSoapExpansibleService.php">
       <class name="rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService" namespace="global">
         <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </class>
-      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="30"/>
-      <line num="18" type="stmt" count="30"/>
-      <line num="20" type="stmt" count="30"/>
-      <line num="23" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="29"/>
-      <line num="25" type="stmt" count="29"/>
-      <metrics loc="28" ncloc="28" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="46"/>
+      <line num="20" type="stmt" count="46"/>
+      <line num="22" type="stmt" count="46"/>
+      <line num="25" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="45"/>
+      <line num="27" type="stmt" count="45"/>
+      <metrics loc="30" ncloc="30" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
     </file>
     <file name="/app/src/services/VatNumberValidationSoapService.php">
       <class name="rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService" namespace="global">
         <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </class>
-      <line num="9" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="29"/>
-      <line num="11" type="stmt" count="29"/>
+      <line num="9" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="45"/>
+      <line num="11" type="stmt" count="45"/>
       <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
     </file>
     <file name="/app/src/services/VatNumberValidationSoapTestService.php">
       <class name="rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService" namespace="global">
         <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </class>
-      <line num="9" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="29"/>
-      <line num="11" type="stmt" count="29"/>
+      <line num="9" type="method" name="getWsdlSource" visibility="protected" complexity="1" crap="1" count="45"/>
+      <line num="11" type="stmt" count="45"/>
       <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
     </file>
-    <metrics files="4" loc="120" ncloc="120" classes="4" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="26" coveredstatements="26" elements="34" coveredelements="34"/>
+    <metrics files="4" loc="104" ncloc="104" classes="4" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="23" coveredelements="23"/>
   </project>
 </coverage>

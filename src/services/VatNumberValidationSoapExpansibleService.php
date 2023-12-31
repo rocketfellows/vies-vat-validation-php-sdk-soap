@@ -4,6 +4,7 @@ namespace rocketfellows\ViesVatValidationSoap\services;
 
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\AbstractVatNumberValidationSoapService;
 
 class VatNumberValidationSoapExpansibleService extends AbstractVatNumberValidationSoapService
@@ -13,9 +14,10 @@ class VatNumberValidationSoapExpansibleService extends AbstractVatNumberValidati
     public function __construct(
         string $wsdl,
         FaultCodeExceptionFactory $faultCodeExceptionFactory,
-        SoapClientFactory $soapClientFactory
+        SoapClientFactory $soapClientFactory,
+        VatNumberValidationResultFactory $vatNumberValidationResultFactory
     ) {
-        parent::__construct($faultCodeExceptionFactory, $soapClientFactory);
+        parent::__construct($faultCodeExceptionFactory, $soapClientFactory, $vatNumberValidationResultFactory);
 
         $this->wsdl = $wsdl;
     }

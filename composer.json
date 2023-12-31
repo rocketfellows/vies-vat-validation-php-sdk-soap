@@ -10,7 +10,7 @@
     "require": {
         "php": ">=7.4",
         "rocketfellows/soap-client-factory": "1.0.0",
-        "rocketfellows/vies-vat-validation-php-sdk-interface": "~1.1.0"
+        "rocketfellows/vies-vat-validation-php-sdk-interface": "~1.2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",

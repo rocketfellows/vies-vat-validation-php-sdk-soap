@@ -40,6 +40,16 @@ For the SOAP service, three WSDLs are available:
 
 `VatNumberValidationSoapExpansibleService` - is an inheritor of the `AbstractVatNumberValidationSoapService` class, configured to send a request to the service according to wsdl, passed through the class constructor (customizable service).
 
+For creating vat number validation result this component is using factory `rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory` from interface package https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface.
+According to factory, if any of required response attributes is missing, then validation process will throw special exceptions:
+
+- `CountryCodeAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` country code attribute not found.
+- `RequestDateAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` request date attribute not found.
+- `ValidationFlagAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` validation flag attribute not found.
+- `VatNumberAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` vat number attribute not found.
+- `VatOwnerAddressAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` vat owner address attribute not found.
+- `VatOwnerNameAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` vat owner name attribute not found.
+
 ## Usage examples.
 
 ### VatNumberValidationSoapService usage.
@@ -52,12 +62,17 @@ VAT number validation result (VAT is valid):
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
+$service = new VatNumberValidationSoapService(
+    (new FaultCodeExceptionFactory()),
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
+);
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
 
@@ -71,10 +86,11 @@ var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
 ```shell
 VAT country code: DE
 VAT number: 206223519
-Request date: 2023-12-11+01:00
+Request date: 2023-12-31+01:00
 Is VAT valid: true
 VAT holder name: ---
 VAT holder address: ---
+
 ```
 
 VAT number validation result (VAT is not valid):
@@ -83,12 +99,17 @@ VAT number validation result (VAT is not valid):
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
+$service = new VatNumberValidationSoapService(
+    (new FaultCodeExceptionFactory()),
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
+);
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));
 
@@ -102,7 +123,7 @@ var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
 ```shell
 VAT country code: DE
 VAT number: 206223511
-Request date: 2023-12-11+01:00
+Request date: 2023-12-31+01:00
 Is VAT valid: false
 VAT holder name: ---
 VAT holder address: ---
@@ -137,12 +158,17 @@ VAT number validation result (VAT is valid):
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService(
+    (new FaultCodeExceptionFactory()),
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
+);
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '100'));
 
@@ -156,7 +182,7 @@ var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
 ```php
 VAT country code: DE
 VAT number: 100
-Request date: 2023-12-13+01:00
+Request date: 2023-12-31+01:00
 Is VAT valid: true
 VAT holder name: John Doe
 VAT holder address: 123 Main St, Anytown, UK
@@ -168,12 +194,17 @@ VAT number validation result (VAT is not valid):
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService(
+    (new FaultCodeExceptionFactory()),
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
+);
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '200'));
 
@@ -187,7 +218,7 @@ var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
 ```php
 VAT country code: DE
 VAT number: 200
-Request date: 2023-12-13+01:00
+Request date: 2023-12-31+01:00
 Is VAT valid: false
 VAT holder name: ---
 VAT holder address: ---
@@ -199,12 +230,17 @@ VAT number validation resulted with INVALID_INPUT fault:
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService(
+    (new FaultCodeExceptionFactory()),
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
+);
 
 try {
     $validationResult = $service->validateVat(VatNumber::create('DE', '201'));
@@ -224,12 +260,17 @@ VAT number validation resulted with IP_BLOCKED fault:
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationSoapTestService((new FaultCodeExceptionFactory()), (new SoapClientFactory()));
+$service = new VatNumberValidationSoapTestService(
+    (new FaultCodeExceptionFactory()),
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
+);
 
 try {
     $validationResult = $service->validateVat(VatNumber::create('DE', '401'));
@@ -257,6 +298,7 @@ VAT number validation result (VAT is valid):
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -265,7 +307,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 $service = new VatNumberValidationSoapExpansibleService(
     'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl',
     (new FaultCodeExceptionFactory()),
-    (new SoapClientFactory())
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
 );
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
@@ -292,6 +335,7 @@ VAT number validation result (VAT is not valid):
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\SoapClientFactory\SoapClientFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationSoap\services\VatNumberValidationSoapExpansibleService;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -300,7 +344,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 $service = new VatNumberValidationSoapExpansibleService(
     'https://ec.europa.eu/taxation_customs/vies/services/checkVatService.wsdl',
     (new FaultCodeExceptionFactory()),
-    (new SoapClientFactory())
+    (new SoapClientFactory()),
+    (new VatNumberValidationResultFactory())
 );
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));

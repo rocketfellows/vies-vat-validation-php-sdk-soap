@@ -16,7 +16,8 @@ class VatNumberValidationSoapTestServiceTest extends VatNumberValidationServiceT
     {
         return new VatNumberValidationSoapTestService(
             $this->faultCodeExceptionFactory,
-            $this->soapClientFactory
+            $this->soapClientFactory,
+            $this->vatNumberValidationResultFactory
         );
     }
 }

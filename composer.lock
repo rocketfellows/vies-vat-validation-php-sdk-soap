@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d88bfca9427786e560fc5893c37b609",
+    "content-hash": "fbea0ea88fa92561fb9d4df3a482fb1f",
     "packages": [
         {
             "name": "rocketfellows/soap-client-factory",
@@ -53,16 +53,16 @@
         },
         {
             "name": "rocketfellows/vies-vat-validation-php-sdk-interface",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface.git",
-                "reference": "0234f740d824907015928d39fea667abf5027e1c"
+                "reference": "cfd258abd21efadcefc16830215034eadb4dd29f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rocketfellows/vies-vat-validation-php-sdk-interface/zipball/0234f740d824907015928d39fea667abf5027e1c",
-                "reference": "0234f740d824907015928d39fea667abf5027e1c",
+                "url": "https://api.github.com/repos/rocketfellows/vies-vat-validation-php-sdk-interface/zipball/cfd258abd21efadcefc16830215034eadb4dd29f",
+                "reference": "cfd258abd21efadcefc16830215034eadb4dd29f",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             ],
             "support": {
                 "issues": "https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface/issues",
-                "source": "https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface/tree/v1.1.0"
+                "source": "https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface/tree/v1.2.0"
             },
-            "time": "2023-12-23T12:01:06+00:00"
+            "time": "2023-12-30T11:18:28+00:00"
         }
     ],
     "packages-dev": [
