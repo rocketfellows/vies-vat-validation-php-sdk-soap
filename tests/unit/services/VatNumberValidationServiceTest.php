@@ -22,6 +22,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
 use SoapFault;
 use stdClass;
@@ -43,6 +44,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     protected $vatNumberValidationSoapService;
     protected $faultCodeExceptionFactory;
     protected $soapClientFactory;
+    protected $vatNumberValidationResultFactory;
 
     abstract protected function getVatNumberValidationSoapService(): VatNumberValidationServiceInterface;
 
@@ -51,6 +53,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
         parent::setUp();
 
         $this->faultCodeExceptionFactory = new FaultCodeExceptionFactory();
+        $this->vatNumberValidationResultFactory = new VatNumberValidationResultFactory();
         $this->soapClientFactory = $this->createMock(SoapClientFactory::class);
 
         $this->vatNumberValidationSoapService = $this->getVatNumberValidationSoapService();
